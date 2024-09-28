@@ -53,7 +53,7 @@ git clone git@github.com:nick/repo.git
 ![](/lab1/media/location.png)
 
 ## Set SSL cert
-### будем использовать самоподписанный сертификат и вводим данные
+### будем использовать самоподписанный сертификат
 
 ```bash
 sudo mkdir /etc/nginx/ssl
@@ -62,6 +62,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -out /etc/nginx/ssl/nginx.crt
 ```
 #
+Вводим данные
 ```bash
 Country Name (2 letter code) [AU]: RU
 State or Province Name (full name) [Some-State]: Saint-Petersburg
@@ -72,7 +73,7 @@ Common Name (e.g. server FQDN or YOUR name) []: ip-address
 Email Address []: some@mail.ru
 ```
 
-После создания сертификата, для удобства перенесли их в репу
+После создания сертификата для удобства перенесли их в репу
 ```bash
 sudo mkdir /root/repo/lab/web_server/ssl
 sudo mv /etc/nginx/ssl/nginx.crt /root/repo/lab1/web_server/ssl/nginx.crt
@@ -136,7 +137,7 @@ server {
     listen 443 ssl;
     server_name 147.45.106.50;
 
-#пьем витамины 
+#указываем путь к сертификату и ключу 
     ssl_certificate /root/Itmo-DevOps-Cloud/lab1/web_server/ssl/nginx.crt;
     ssl_certificate_key /root/Itmo-DevOps-Cloud/lab1/web_server/ssl/nginx.key;
 
@@ -159,15 +160,15 @@ server {
 }
 
 server {
-#слушаем/ся
+#слушаем
     listen 443 ssl;
     server_name 45.8.97.55;
 
-#предохраняемся   
+#указываем путь к сертификату и ключу    
     ssl_certificate /root/Itmo-DevOps-Cloud/lab1/web_server/ssl/nginx.crt;
     ssl_certificate_key /root/Itmo-DevOps-Cloud/lab1/web_server/ssl/nginx.key;
 
-#ползем к нашему html файлу
+#указываем путь к нашему html файлу
     location / {
         alias /root/Itmo-DevOps-Cloud/lab1/site2/;
         index second.html;
