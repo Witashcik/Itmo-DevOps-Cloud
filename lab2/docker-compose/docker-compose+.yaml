@@ -1,0 +1,27 @@
+version: "4"
+
+services: 
+  someDB:
+    image: someBD:latest
+    container_name: amazing.App_db
+    env_file: #а это круто
+      - .env.db 
+    volumes:
+      - .:/DB_data:/var/lib/name_DB/data
+    ports:
+      - "8080:80"
+    restart: always #перезагрузка при ошибке
+
+  app: #сам контейнер (его имя)
+    build: # создание контейнера???
+      context: ./
+      dockerfile: Dockerfile 
+  depends_on:
+      - someDB
+  volumes:
+      - .:/app
+  command: > # команда которую нужно выполнить
+      /bin/sh 'some useful command'
+
+volumes:
+  DB_data:
