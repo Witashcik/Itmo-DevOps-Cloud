@@ -1,0 +1,15 @@
+version: "4"
+
+services:
+  web:
+    image: python:3.9-alpine
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app  # Прямое монтирование кода из хоста в контейнер
+    environment:
+      FLASK_ENV: development  # Использование режима разработки в продакшене
+    command: >
+      sh -c "pip install flask==2.0.1 && python3 -m flask run --host=0.0.0.0 --port=5000"
