@@ -37,7 +37,11 @@
 
 3. Результат
 
+[Ссылка на файл в Google Drive][2]
+
 ![Result](/Clouds/Lab1(AWS)/media/screen2.png)
+
+
 
 
 ### Описание сервисов
@@ -52,3 +56,4 @@
 
 
 [1]: https://docs.aws.amazon.com "Официальная документация Amazon Web Services"
+[2]: https://docs.google.com/spreadsheets/d/1w3V1x3_s0L7yxuJfJTxpX_XW6zr_If2s/edit?usp=sharing&ouid=113039591834532746399&rtpof=true&sd=true "result"
