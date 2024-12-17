@@ -1,18 +1,38 @@
 version: "4"
 
-services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    environment:
-      FLASK_APP: app.py  # Четкое определение запускаемого приложения
-    command: python3 -m flask run --host=0.0.0.0 --port=5000
+services: 
+
+  someDB:
+    image: someBD:latest
+    container_name: amazing.App_db
+    env_file: 
+      - .env.db 
+    volumes:
+      - DB_data:/var/lib/name_DB/data
     networks:
-      - app_network
+      - DB_net
+    ports:
+      - "8080:80"
+    restart: always
+
+  app: 
+    build:
+      context: ./
+      dockerfile: Dockerfile 
+  depends_on:
+      - someDB
+  volumes:
+      - ./app:/path/to/app
+  network:
+      - application_net
+  command: > 
+      /bin/sh 'some useful command'
+
+volumes:
+  DB_data:
 
 networks:
-  app_network:
+  DB_net:
+    driver: bridge
+  application_net:
     driver: bridge

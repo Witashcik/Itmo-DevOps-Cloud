@@ -1,15 +1,22 @@
 version: "4"
 
-services:
-  web:
-    image: python:3.9-alpine
-    build:
-      context: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./app:/app  # Прямое монтирование кода из хоста в контейнер
+services: 
+
+  someDB:
+    image: someBD:latest
+    container_name: amazing.App_db
     environment:
-      FLASK_ENV: development  # Использование режима разработки в продакшене
-    command: >
-      sh -c "pip install flask==2.0.1 && python3 -m flask run --host=0.0.0.0 --port=5000"
+      NAME_DB: "amazing.App_db"
+      USER: "skufyari"
+      PASSWORD: "S3cR3t14/88"
+    volumes:
+      - .:/ #неявный путь
+    ports:
+      - "80:80" #явный порт
+
+  app: 
+    build: 
+      context: ./ #неявный путь
+      dockerfile: Dockerfile 
+    command: > #команда которую нужно выполнить
+      /bin/sh -c 'some useful command'
