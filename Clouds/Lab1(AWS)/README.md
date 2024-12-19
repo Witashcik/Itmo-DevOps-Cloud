@@ -39,7 +39,7 @@
 
 [Ссылка на файл в Google Drive][2]
 
-![Result](/Clouds/Lab1(AWS)/media/screen2.png)
+![Result](/Clouds/Lab1(AWS)/media/screen3.png)
 
 
 
