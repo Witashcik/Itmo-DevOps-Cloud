@@ -35,7 +35,9 @@ jobs:
                   sudo apt-get install -y docker-compose
 
             - name: Build application
-              run: cd ./DevOps/lab3 && sudo docker-compose build
+              run: |
+                cd ./DevOps/lab3
+                docker-compose build
 
     test:
         needs: build
@@ -63,7 +65,9 @@ jobs:
               run: docker compose -f ./lab3/docker-compose.yml build
 
             - name: test application
-              run: cd ./DevOps/lab3 && docker-compose exec -T tests pytest app/test/test_main.py
+              run: |
+                cd ./DevOps/lab3 
+                docker-compose exec -T tests pytest app/test/test_main.py
 
               env:
                   DOCKER_BUILDKIT: 1
