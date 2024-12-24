@@ -25,9 +25,9 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-buildx-${{ github.sha }}
+                  key: ${{ runner.os }}-buildx
                   restore-keys: |
-                      ${{ runner.os }}-buildx-
+                    ${{ runner.os }}-buildx
 
             - name: Install Docker Compose
               run: |
@@ -51,10 +51,9 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-buildx-${{ github.sha }}
+                  key: ${{ runner.os }}-buildx-${{ github.run_id }}
                   restore-keys: |
-                      ${{ runner.os }}-buildx-
-
+                    ${{ runner.os }}-buildx-
             - name: Install Docker Compose
               run: |
                   sudo apt-get update
