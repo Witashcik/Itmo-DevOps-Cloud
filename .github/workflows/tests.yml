@@ -35,7 +35,7 @@ jobs:
                   sudo apt-get install -y docker-compose
 
             - name: Build application
-              run: cd ./DevOps/lab3 && docker-compose build
+              run: cd ./DevOps/lab3 && sudo docker-compose build
 
     test:
         needs: build
