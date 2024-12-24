@@ -113,7 +113,7 @@ jobs:
               run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
 
             - name: Test application
-              run: docker-compose exec FastAPI_app pytest
+              run: docker-compose up -d --build tests
 
     deploy:
         needs: test
