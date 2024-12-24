@@ -9,7 +9,7 @@ on:
             - main
 
 jobs:
-    test: 
+    build: 
         runs-on: ubuntu-20.04
         steps: 
             - name: Checkout repository
@@ -35,12 +35,10 @@ jobs:
                   sudo apt-get install -y docker-compose
 
             - name: Build application
-              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build app
+              run: cd ./DevOps/lab3 && docker-compose build
 
-            - name: Test application
-              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up --build tests
-    deploy:
-        needs: test
+    test:
+        needs: build
         runs-on: ubuntu-20.04
         steps: 
             - name: Checkout repository
@@ -62,10 +60,8 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y docker-compose
 
-            - name: Deploy application
-              run: |
-                  docker-compose -f ./DevOps/lab3/docker-compose.yml down
-                  docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build tests
+            - name: test application
+              run: cd ./DevOps/lab3 && docker-compose up -d tests
               env:
                   DOCKER_BUILDKIT: 1
                   COMPOSE_DOCKER_CLI_BUILD: 1
