@@ -19,7 +19,7 @@ jobs:
               run: sudo service docker start
               
             - name: Set Docker host
-              run: echo "DOCKER_HOST=tcp://127.0.0.1:2375" >> $GITHUB_ENV  
+              run: echo "DOCKER_HOST=tcp://localhost:2375" >> $GITHUB_ENV  
 
             - name: Check Docker status
               run: docker info
