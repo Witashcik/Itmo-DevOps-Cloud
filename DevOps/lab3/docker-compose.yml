@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app/FastAPI_app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: uvicorn app.FastAPI_app.main:app --host 127.0.0.1 --port 8000
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_tests
+    volumes:
+      - .:/app/FastAPI_app
+    environment:
+      - PYTHONUNBUFFERED=1
+    working_dir: /app/FastAPI_app
+    entrypoint: ["pytest", "app/test/test_main.py"]  
