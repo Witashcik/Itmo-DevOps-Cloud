@@ -141,7 +141,7 @@ jobs:
             - name: Deploy application
               run: |
                   docker-compose -f ./DevOps/lab3/docker-compose.yml down
-                  docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build FastAPI_app
+                  docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build tests
               env:
                   DOCKER_BUILDKIT: 1
                   COMPOSE_DOCKER_CLI_BUILD: 1
