@@ -14,6 +14,9 @@ jobs:
         steps: 
             - name: Checkout repository
               uses: actions/checkout@v3
+              
+            - name: Set Docker host
+              run: echo "DOCKER_HOST=tcp://127.0.0.1:2375" >> $GITHUB_ENV  
 
             - name: Check Docker status
               run: docker info
