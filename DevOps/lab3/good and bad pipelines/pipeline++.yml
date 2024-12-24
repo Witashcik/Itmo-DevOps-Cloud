@@ -32,11 +32,14 @@ jobs:
                   sudo apt-get install -y docker-compose
 
             - name: Build application
-              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
+              run: |
+                cd ./DevOps/lab3/
+                docker compose up -d --build app
 
             - name: Test application
-              run: docker-compose up -d --build tests
-
+              run: |
+                cd ./DevOps/lab3/
+                docker compose up -d --build tests
     deploy:
         needs: test
         runs-on: ubuntu-20.04
