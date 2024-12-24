@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/app/FastAPI_app
 
-    command: uvicorn app.FastAPI_app.main:app --host 127.0.0.1 --port 8000
+    command: uvicorn app.FastAPI_app.main:app --host 0.0.0.0 --port 8000
 
   tests:
     build:
