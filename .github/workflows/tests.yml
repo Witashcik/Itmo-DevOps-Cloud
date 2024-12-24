@@ -36,7 +36,6 @@ jobs:
 
             - name: Build application
               run: |
-                cd ./DevOps/lab3
                 docker-compose build
 
     test:
@@ -66,7 +65,6 @@ jobs:
 
             - name: test application
               run: |
-                cd ./DevOps/lab3 
                 docker-compose exec -T tests pytest app/test/test_main.py
 
               env:
