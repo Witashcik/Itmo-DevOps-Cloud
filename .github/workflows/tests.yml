@@ -17,9 +17,6 @@ jobs:
 
             - name: Start Docker
               run: sudo service docker start
-              
-            - name: Set Docker host
-              run: echo "DOCKER_HOST=tcp://localhost:4243" >> $GITHUB_ENV  
 
             - name: Check Docker status
               run: docker info
