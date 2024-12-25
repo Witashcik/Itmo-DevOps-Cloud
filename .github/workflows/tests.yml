@@ -33,7 +33,7 @@ jobs:
                     ${{ runner.os }}-buildx
 
             - name: Build and Test
-              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
+              run: docker compose -f ./DevOps/lab3/docker-compose.yml up -d --build
 
     test:
         needs: build
