@@ -18,6 +18,9 @@ jobs:
             - name: Start Docker
               run: sudo service docker start
 
+            - name: Grant Permissions to Docker
+              run: sudo chmod 666 /var/run/docker.sock
+
             - name: Check Docker status
               run: docker info
 
