@@ -87,7 +87,34 @@ on:
             - main
 
 jobs:
-    test: 
+    build: 
+        runs-on: ubuntu-20.04
+        steps: 
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Start Docker
+              run: sudo service docker start
+
+            - name: Grant Permissions to Docker
+              run: sudo chmod 666 /var/run/docker.sock
+
+            - name: Check Docker status
+              run: docker info
+
+            - name: Cache Docker layers
+              uses: actions/cache@v3
+              with:
+                  path: /tmp/.buildx-cache
+                  key: ${{ runner.os }}-buildx
+                  restore-keys: |
+                    ${{ runner.os }}-buildx
+
+            - name: Build and Test
+              run: docker compose -f ./DevOps/lab3/docker-compose.yml up -d --build
+
+    test:
+        needs: build
         runs-on: ubuntu-20.04
         steps: 
             - name: Checkout repository
@@ -100,48 +127,15 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-buildx-${{ github.sha }}
+                  key: ${{ runner.os }}-buildx-${{ github.run_id }}
                   restore-keys: |
-                      ${{ runner.os }}-buildx-
+                    ${{ runner.os }}-buildx-
 
-            - name: Install Docker Compose
+            - name: test application
               run: |
-                  sudo apt-get update
-                  sudo apt-get install -y docker-compose
+                docker compose -f ./DevOps/lab3/docker-compose.yml up tests -d --build
+                
 
-            - name: Build application
-              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
-
-            - name: Test application
-              run: docker-compose up -d --build tests
-
-    deploy:
-        needs: test
-        runs-on: ubuntu-20.04
-        steps: 
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v2
-
-            - name: Cache Docker layers
-              uses: actions/cache@v3
-              with:
-                  path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-buildx-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-buildx-
-
-            - name: Install Docker Compose
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install -y docker-compose
-
-            - name: Deploy application
-              run: |
-                  docker-compose -f ./DevOps/lab3/docker-compose.yml down
-                  docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build tests
               env:
                   DOCKER_BUILDKIT: 1
                   COMPOSE_DOCKER_CLI_BUILD: 1
@@ -149,3 +143,11 @@ jobs:
 
 
 ### В этом пайплайне учтены все недочеты, + добавлено кеширование
+
+## Попытки починить пайплайн
+После первого пуша были траблы с настройкой докер <br />
+![troubles](/DevOps/lab3/media/screen2.png)
+<br />
+Починить получилось убрав из пайплайна отдельную установку докер компоус потому что он сразу входит при установке докера (тупая ошибка получилась) <br />
+
+![result](/DevOps/lab3/media/screen1.png)
