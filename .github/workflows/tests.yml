@@ -39,9 +39,7 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y docker-compose
             - name: Build and Test
-              run: |
-                docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
-                docker-compose exec tests pytest app/test/test_main.py
+              run: docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
 
     test:
         needs: build
