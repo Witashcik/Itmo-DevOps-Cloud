@@ -55,7 +55,8 @@ jobs:
 
             - name: test application
               run: |
-                docker compose exec -T tests pytest ./DevOps/lab3/app/test/test_main.py
+                docker compose -f ./DevOps/lab3/docker-compose.yml up tests -d --build
+                
 
               env:
                   DOCKER_BUILDKIT: 1
