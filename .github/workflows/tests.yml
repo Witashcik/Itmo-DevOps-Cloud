@@ -39,8 +39,6 @@ jobs:
               run: |
                 docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
                 docker-compose exec tests pytest app/test/test_main.py
-              env:
-                DOCKER_HOST: tcp://127.0.0.1:2375
 
     test:
         needs: build
