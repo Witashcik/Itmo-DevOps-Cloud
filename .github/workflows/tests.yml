@@ -34,14 +34,16 @@ jobs:
                   key: ${{ runner.os }}-buildx
                   restore-keys: |
                     ${{ runner.os }}-buildx
-
             - name: Install Docker Compose
               run: |
                   sudo apt-get update
                   sudo apt-get install -y docker-compose
-
-            - name: Build application
-              run: docker compose -f ./DevOps/lab3/docker-compose.yml build
+            - name: Build and Test
+              run: |
+                docker-compose -f ./DevOps/lab3/docker-compose.yml up -d --build
+                docker-compose exec tests pytest app/test/test_main.py
+              env:
+                DOCKER_HOST: tcp://127.0.0.1:2375
 
     test:
         needs: build
